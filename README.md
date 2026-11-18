@@ -16,6 +16,7 @@ Each project lives in its own folder with code, schematic and a short README.
 |---|---|---|---|
 | 01 | [Traffic Lights](01-traffic-lights) | Car and pedestrian traffic light started by a button | Done |
 
+| 02 | [Traffic Lights](02-automated-parking-system) | Ramp that opens automaticaly | In Work |
 More projects will be added here as I build them.
 
 ## Repository structure
