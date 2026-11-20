@@ -15,9 +15,16 @@ Each project lives in its own folder with code, schematic and a short README.
 | # | Project | Description | Status |
 |---|---|---|---|
 | 01 | [Traffic Lights](01-traffic-lights) | Car and pedestrian traffic light started by a button | Done |
-
+|---|---|---|---|
 | 02 | [Traffic Lights](02-automated-parking-system) | Ramp that opens automaticaly | In Work |
 More projects will be added here as I build them.
+
+## Note on larger projects
+
+Small projects live here, one folder per project. If a project grows
+beyond a single folder (firmware, CAD, documentation, longer history),
+it may be moved to its own repository. In that case, its folder here
+is replaced by a short README with a link to the new location.
 
 ## Repository structure
 
