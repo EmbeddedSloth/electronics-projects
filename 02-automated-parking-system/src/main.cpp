@@ -5,12 +5,19 @@ Servo myServo;
 
 const int trigPin = 9;
 const int echoPin =  10;
+
 const int servoMotorPin = 2;
+
+const int redLEDPin = 5;
+const int greenLEDPin = 4;
+
+const int piezoPin = 3;
 
 const int rampUp = 90;
 const int rampDown = 0;
 
 float scanDuration, scanedDistance;
+bool isRampUp = false;
 
 
 void setup() {
@@ -18,6 +25,13 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   myServo.attach(servoMotorPin);
+  pinMode(redLEDPin, OUTPUT);
+  pinMode(greenLEDPin, OUTPUT);
+  
+  myServo.write(rampDown);
+  digitalWrite(redLEDPin, HIGH);
+  digitalWrite(greenLEDPin, LOW);
+
 }
 
 void loop() {
@@ -35,10 +49,23 @@ void loop() {
   delay(100);
 
   if (scanedDistance > 0 && scanedDistance <= 50) {
-    myServo.write(rampUp);
+    if (isRampUp == false) {
+      myServo.write(rampUp);
+      tone(piezoPin,1000,200);
+      digitalWrite(redLEDPin, LOW);
+      digitalWrite(greenLEDPin, HIGH);
+      isRampUp = true;
+    }
+ }
+  else if (scanedDistance > 70) { 
+    if (isRampUp == true) {
+      delay(3000);
+      digitalWrite(redLEDPin, HIGH);
+      digitalWrite(greenLEDPin, LOW);
+      delay(1500);
+      myServo.write(rampDown);
+      isRampUp = false;
+      delay(5000);
+    }
   }
-  else {
-    myServo.write(rampDown);
-  }
-  delay(15);
 }
