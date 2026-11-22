@@ -3,15 +3,17 @@
 
 Servo myServo;
 
-const int trigPin = 9;
-const int echoPin =  10;
+const int trigPin = 10;
+const int echoPin =  9;
 
-const int servoMotorPin = 2;
+const int servoMotorPin = 6;
 
-const int redLEDPin = 5;
-const int greenLEDPin = 4;
+const int redLEDPin = 8;
+const int greenLEDPin = 7;
 
-const int piezoPin = 3;
+const int piezoPin = 4;
+
+const int switchPin = 3;
 
 const int rampUp = 90;
 const int rampDown = 0;
@@ -27,6 +29,7 @@ void setup() {
   myServo.attach(servoMotorPin);
   pinMode(redLEDPin, OUTPUT);
   pinMode(greenLEDPin, OUTPUT);
+  pinMode(switchPin, INPUT);
   
   myServo.write(rampDown);
   digitalWrite(redLEDPin, HIGH);
@@ -47,7 +50,8 @@ void loop() {
   Serial.print("Distance: ");
   Serial.println(scanedDistance);
   delay(100);
-
+  Serial.println(digitalRead(switchPin));
+  
   if (scanedDistance > 0 && scanedDistance <= 50) {
     if (isRampUp == false) {
       myServo.write(rampUp);
@@ -66,6 +70,15 @@ void loop() {
       myServo.write(rampDown);
       isRampUp = false;
       delay(5000);
+    }
+  }
+  if (digitalRead(switchPin) == HIGH) {
+    if (isRampUp == false) {
+      myServo.write(rampUp);
+      tone(piezoPin,1000,200);
+      digitalWrite(redLEDPin, LOW);
+      digitalWrite(greenLEDPin, HIGH);
+      isRampUp = true;
     }
   }
 }
